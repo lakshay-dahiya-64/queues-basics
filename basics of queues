@@ -1,0 +1,166 @@
+#include<iostream>
+using namespace std;
+class queue{
+    public:
+  int *arr;
+  int front;
+  int rear;
+  int size;
+
+  queue(int size){
+    arr= new int[size];
+    this->size=size;
+    front=-1;
+    rear=-1;
+}
+    void push(int data){
+        if(size-rear>1){
+            rear++;
+            arr[rear]=data;
+        }
+        else{
+            cout<<"queue overflow "<<endl;
+        }
+    }
+
+    void pop(){
+        if(rear==front){
+            cout<<"queue underflow"<<endl;
+        }
+        else{
+            if(front==-1){
+                front++;
+                arr[front]=0;
+                front++;}
+            else{
+                arr[front]=0;
+                front++;
+                if(front==rear){
+                    front=-1;
+                    rear=-1;
+                }
+            }
+           
+        }
+    }
+
+   int gettop(){
+    if(front==-1){
+        front++;
+        return arr[front];
+    }
+    else{
+        return arr[front];
+    }
+    }
+
+    bool isempty(){
+      if(front==rear){
+        return true;
+
+      }
+      else
+      return false;
+    }
+
+    void print(){
+    for(int i=0;i<=rear;i++){
+        cout<<arr[i]<<" ";
+    }
+    }
+};
+
+//circular queue
+
+class circularqueue{
+    public:
+int *arr;
+int front;
+int rear;
+int size;
+
+circularqueue(int size){
+arr= new int[size];
+this->size=size;
+rear=-1;
+front=-1;
+}
+
+void push(int data){
+    if(rear==size-1 && front==0){
+        cout<<"circular queue is full"<<endl;
+    }
+    else if(rear==front-1){
+        cout<<"circular queue is full"<<endl;
+    }
+    else if(front!=0 && rear==size-1){
+       rear=0;
+       arr[rear]=data;
+       
+    }
+    else{
+        if(rear==-1 && front==-1){
+            //first element to be inserted
+            front=rear=0;
+            arr[rear]=data;
+        }
+        else{
+            rear++;
+            arr[rear]=data;
+        }
+    }
+}
+
+void pop(){
+    if(rear==-1 && front==-1){
+        cout<<"circular queue underflow "<<endl;
+    }
+    else{
+    if(rear==front){
+        arr[front]= 0;
+        front=rear=-1;
+    }
+    else if(front==0){
+        arr[front]=0;
+        front++;
+    }
+    else if(front==size-1){
+     arr[front]=0;
+     front=0;
+    }
+    else{
+        arr[front]=0;
+        front++;
+    }
+}}
+void print()
+{
+for(int i=0;i<size;i++){
+    cout<<arr[i]<<" ";
+}
+cout<<endl;}
+
+};
+
+   int main(){
+ circularqueue s(4);
+ s.push(10);
+ s.push(20);
+ s.push(30);
+ s.push(40);
+ s.push(20);
+ s.pop();
+ s.push(20);
+ s.push(80);
+ s.pop();
+ s.pop();
+ s.push(1);
+ s.push(2);
+ s.pop();
+ s.pop();
+ s.pop();
+ s.pop();
+ s.push(10);
+ s.print();
+return 0;
+}
